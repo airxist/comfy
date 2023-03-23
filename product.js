@@ -6,7 +6,7 @@ const range = document.getElementById("range");
 const current_price = document.querySelector(".current_price");
 
 // **************** CONDITIONS AND OPTIONS;
-let dragging = false, prev_pageY;
+let dragging = false, prev_pageY, prev_scrollTop;
 const prod_class = [
     "scaleone",
     "scaletwo", 
@@ -44,7 +44,9 @@ ops.forEach(button => {
 prod_image.forEach(prod => {
     prod.addEventListener("touchstart", (e) => {
        dragging = true;
-       prev_pageY = e.touches[0].pageY;
+       prev_pageY = e.touches[0].pageY
+    //    prev_scrollTop = prod.scrollTop;
+    console.log(prev_pageY)
     })
 
     prod.addEventListener("touchmove", (e) => {
@@ -52,15 +54,16 @@ prod_image.forEach(prod => {
         if(!dragging) {
             return;
         }else {
-            if (e.touches[0].pageY > prev_pageY) {
-                shufflePic();
-            }else{
-                unshufflePic();
-            }
+            pos = e.touches[0].pageY - prev_pageY;
+            // prod.scrollTop = prev_scrollTop - prod.scrollTop;
+            // console.log(prod.scrollTop)
+            console.log(pos)
+            
+            pos > 200 ? shufflePic() : unshufflePic();
         }
     })
 
-    prod.addEventListener("touchend", (e) => {
+    prod.addEventListener("touchend", () => {
         dragging = false;
     })
 })
