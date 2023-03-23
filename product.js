@@ -43,7 +43,7 @@ ops.forEach(button => {
 })
 prod_image.forEach(prod => {
     prod.addEventListener("touchstart", (e) => {
-       dragging = true;
+    //    dragging = true;
        prev_pageY = e.touches[0].pageY
     //    prev_scrollTop = prod.scrollTop;
     console.log(prev_pageY)
@@ -51,16 +51,14 @@ prod_image.forEach(prod => {
 
     prod.addEventListener("touchmove", (e) => {
         e.preventDefault();
-        if(!dragging) {
-            return;
+        pos = e.touches[0].pageY - prev_pageY;
+        if(pos >= 100) {
+            dragging = true;
+            shufflePic();
         }else {
-            pos = e.touches[0].pageY - prev_pageY;
-            // prod.scrollTop = prev_scrollTop - prod.scrollTop;
-            // console.log(prod.scrollTop)
-            console.log(pos)
-            
-            pos > 200 ? shufflePic() : unshufflePic();
+            unshufflePic();
         }
+        console.log(dragging);
     })
 
     prod.addEventListener("touchend", () => {
