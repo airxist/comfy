@@ -471,6 +471,7 @@ input[type = "range"]::-webkit-slider-thumb {
     border-radius: 50% 50% 0 50%;
     border: white 1px solid;
     visibility: hidden;
+    transition: .7s;
 }
 .price_num {
     transform: rotate(-45deg);
